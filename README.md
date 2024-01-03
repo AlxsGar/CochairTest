@@ -11,6 +11,9 @@
 This API ([**https://api.punkapi.com/v2/beers**](https://api.punkapi.com/v2/beers)) will return an array of beers with different values.
 During the process you'll need to keep your camera and mic on. If you can not do it, please ask to re-schedule for a different date or time.
 
+Example:
+![Screen Shot 2024-01-03 at 2 53 03](https://github.com/cochairdev/cochair_front/assets/44392283/24dd748f-6241-43e8-a823-d3c9b3dca332)
+
 You need to:
 
 1.  Show the Name, Description, Image and Food Pairing for the first 10 elements
