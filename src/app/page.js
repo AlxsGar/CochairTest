@@ -1,41 +1,46 @@
 "use client";
 
-import { Button, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import styled from "styled-components";
-
-const getData = async () => {
-  const response = await fetch("https://api.punkapi.com/v2/beers");
-  const data = await response.json();
-  console.log(data);
-  return data;
-};
+import useStarWars from "../hooks/useStarWars";
+import { useEffect } from "react";
+import Grid2 from "@mui/material/Unstable_Grid2";
+import PlanetCard from "../components/cards/PlanetCard";
 
 const MainContainer = styled.div`
-  height: 100vh;
+  min-height: 100vh;
   width: 100vw;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-  background-color: black;
+  background-color: white;
+  padding: 2rem;
 `;
 
 const Beers = () => {
+  const { fetchStarWarsPlanets, swList, error, errorMessage, loading } =
+    useStarWars();
+
+  useEffect(() => {
+    fetchStarWarsPlanets();
+  }, []);
+
   return (
     <MainContainer>
-      <Typography variant="h1" color="primary" align={"center"}>
-        Welcome to your techincal assesment
-      </Typography>
-      <Typography variant="body" color="white">
-        {`You can find instructions on the README.md file. This button will print in the console the data from the API, only keep
-        the code if you need it. `}
-      </Typography>
-      <Button variant="contained" color="primary" onClick={getData}>
-        Click to print values
-      </Button>
-      <Typography variant="body" color="white">
-        Good luck!
-      </Typography>
+      {loading && (
+        <Typography variant="h1" color="primary" align="center">
+          ...Loading
+        </Typography>
+      )}
+      {!loading && error && (
+        <Typography variant="h1" color="primary" align="center">
+          {errorMessage}
+        </Typography>
+      )}
+      {!loading && swList && (
+        <Grid2 container spacing={5} columns={2}>
+          {swList.map((planet) => {
+            return <PlanetCard planet={planet} />;
+          })}
+        </Grid2>
+      )}
     </MainContainer>
   );
 };
